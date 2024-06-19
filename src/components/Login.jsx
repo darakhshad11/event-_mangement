@@ -80,7 +80,7 @@ function Login() {
         {"Copyright © "}
         <Link
           color="inherit"
-          href="https://vinay-portfolio-phi.vercel.app/"
+          href="https://fizaali.me"
           target="_blank"
         >
           Event Management

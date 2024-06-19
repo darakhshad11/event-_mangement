@@ -24,6 +24,7 @@ import deleteProducts from "../api/deleteProduct";
 // import {storage} from '../FirebaseConfig'
 
 const VendorPage = () => {
+  console.log("i ma m vendorpage")
   const [data, setData] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [idCounter, setIdCounter] = React.useState("Add Product");
@@ -43,6 +44,7 @@ const VendorPage = () => {
       await updateProducts(formData);
     } else {
       await addProduct(formData);
+      console.log({formData})
     }
     setFormData({
       id: uuidV4().split("-")[0],
@@ -66,7 +68,7 @@ const VendorPage = () => {
     const user = JSON.parse(localStorage.getItem("user")) || { role: "" };
     if (user.role) {
       if (user.role === "vendor") {
-        window.location.href = "/vendor-page";
+        // window.location.href = "/vendor-page";
       } else {
         getData.current();
       }
