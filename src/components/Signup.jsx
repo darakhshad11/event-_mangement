@@ -136,7 +136,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <label style={{ marginTop: "20px" }} htmlFor="">
-                  Select Your Role (Vendor or User)
+                  Select Your Role (Vendor , User or Admin)
                 </label>
                 <Select
                   style={{ marginTop: "10px" }}
@@ -148,6 +148,7 @@ export default function SignUp() {
                 >
                   <MenuItem value="user">User</MenuItem>
                   <MenuItem value="vendor">Vendor</MenuItem>
+                  <MenuItem value="vendor">Admin</MenuItem>
                 </Select>
               </Grid>
 

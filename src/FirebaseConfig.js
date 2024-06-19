@@ -6,16 +6,16 @@ import { getAuth } from "firebase/auth";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage'
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDXgH4VavgZ5asGerGVgziFbuEUN_iIYiM",
-  authDomain: "event-management-9aece.firebaseapp.com",
-  projectId: "event-management-9aece",
-  storageBucket: "event-management-9aece.appspot.com",
-  messagingSenderId: "798184556724",
-  appId: "1:798184556724:web:e9583c53acfad87170efe1",
-  measurementId: "G-DX07F83DN1"
-};
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCL3JPD6h_dLihm2lnxQNW9YqOuUeYhFv8",
+  authDomain: "event-94489.firebaseapp.com",
+  projectId: "event-94489",
+  storageBucket: "event-94489.appspot.com",
+  messagingSenderId: "197456457383",
+  appId: "1:197456457383:web:2b75093933fbfea287f582",
+  measurementId: "G-9EERK27MG1"
+};
 
 
 if (!firebase.apps.length) {

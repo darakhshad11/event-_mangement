@@ -32,10 +32,14 @@ function Login() {
     } else if (user.role === "vendor")  {
       window.location.href = "/vendor-page";
     }
+     else if (user.role === "admin"){
+      window.location.href = "/admin-page";
+    }
   }, []);
 
   async function CheckName() {
     if (username.length <= 0 || password.length <= 0) {
+      console.log({username})
       alert("Enter Correct Details");
       return;
     }
@@ -50,7 +54,12 @@ function Login() {
       window.location.href = "/user-page";
     } else if (currentUser.role === "vendor") {
       window.location.href = "/vendor-page";
-    } else {
+    }else if (currentUser.role === "admin") {
+      window.location.href = "/admin-page";
+
+    }
+    
+    else {
       window.location.href = "/login-failed";
     }
     return;
