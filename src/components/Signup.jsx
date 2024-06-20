@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -25,12 +24,12 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {/* {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Event Management
-      </Link>{" "}
+        Your Website
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'} */}
     </Typography>
   );
 }
@@ -84,103 +83,101 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Username"
-                  variant="outlined"
-                  //   value={username}
-                  onChange={handleUsernameChange}
-                  fullWidth
-                  margin="normal"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Email"
-                  variant="outlined"
-                  type="email"
-                  //   value={email}
-                  onChange={handleEmailChange}
-                  fullWidth
-                  margin="normal"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Password"
-                  variant="outlined"
-                  type="password"
-                  //   value={password}
-                  onChange={handlePasswordChange}
-                  fullWidth
-                  margin="normal"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <label style={{ marginTop: "20px" }} htmlFor="">
-                  Select Your Role (Vendor , User or Admin)
-                </label>
-                <Select
-                  style={{ marginTop: "10px" }}
-                  variant="outlined"
-                  value={role}
-                  onChange={handleSelectChange}
-                  fullWidth
-                  margin="normal"
-                >
-                  <MenuItem value="user">User</MenuItem>
-                  <MenuItem value="vendor">Vendor</MenuItem>
-                  <MenuItem value="vendor">Admin</MenuItem>
-                </Select>
-              </Grid>
+      <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: "20px 0" }}>
+        <Container component="main" maxWidth="xs" style={{ backgroundColor: "#ffffff", padding: "20px", borderRadius: "8px" }}>
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <Box sx={{ mt: 3 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Username"
+                    variant="outlined"
+                    onChange={handleUsernameChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    onChange={handleEmailChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    onChange={handlePasswordChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <label style={{ marginTop: "20px" }} htmlFor="">
+                    Select Your Role (Vendor , User or Admin)
+                  </label>
+                  <Select
+                    style={{ marginTop: "10px" }}
+                    variant="outlined"
+                    value={role}
+                    onChange={handleSelectChange}
+                    fullWidth
+                    margin="normal"
+                  >
+                    <MenuItem value="user">User</MenuItem>
+                    <MenuItem value="vendor">Vendor</MenuItem>
+                    <MenuItem value="admin">Admin</MenuItem>
+                  </Select>
+                </Grid>
 
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox value="allowExtraEmails" color="primary" />
+                    }
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-            <Button
-              //   type="submit"
-              fullWidth
-              onClick={registerUser}
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+              <Button
+                fullWidth
+                onClick={registerUser}
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="/" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+      </div>
     </ThemeProvider>
   );
 }

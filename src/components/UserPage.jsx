@@ -25,7 +25,7 @@ export default function MediaCard() {
   }, []);
   return (
     <>
-      <Navbar name="USER DASHBOARD" />
+      <Navbar name="USER" />
 
       <div
         style={{
@@ -39,7 +39,12 @@ export default function MediaCard() {
         {products.length > 0 &&
           products.map((product) => {
             return (
-              <>
+              <div>
+              <div style={{  padding: "10px", fontSize: "24px", fontWeight: "bold" , marginLeft:"500px"}}>
+  <span style={{ backgroundColor: "#f0f0f0" , padding:"10px"}}>
+    Welcome User
+  </span>
+</div>
                 <div class="max-w-sm rounded overflow-hidden shadow-lg">
                   <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2">{product.name}</div>
@@ -58,7 +63,7 @@ export default function MediaCard() {
                     </button>
                   </div>
                 </div>
-              </>
+              </div>
             );
           })}
       </div>

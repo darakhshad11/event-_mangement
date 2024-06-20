@@ -1,4 +1,4 @@
-// VenderDashboard.jsx
+
 
 import React, { useState } from "react";
 import Navbar from "../components/Navebar";
@@ -101,8 +101,9 @@ const VendorPage = () => {
 
   return (
     <>
+    
   
-      <Navbar name="Vender Dashboard" />
+      <Navbar name="Vendor" />
       <div
         style={{
           display: "flex",
@@ -111,10 +112,12 @@ const VendorPage = () => {
           marginTop: "30px",
         }}
       >
+
+
         <Typography variant="h3" component="h2" style={{fontFamily:'serif'}} >
           Add Product
         </Typography>
-        <Button variant="outlined" color="secondary"  onClick={handleClickOpen} style={{marginTop:'50px',marginBottom:'50px', fontSize:'18px'}}>
+        <Button variant="outlined" color="secondary"  onClick={handleClickOpen} style={{marginTop:'40px',marginBottom:'50px', fontSize:'18px'}}>
           Add Product
         </Button>
         <TableContainer

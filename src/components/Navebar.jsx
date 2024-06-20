@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,20 +16,19 @@ import MenuItem from "@mui/material/MenuItem";
 function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-//  React.useEffect(()=>{
-// const user=JSON.parse(localStorage.getItem("user")) || { username: "" };
-
-//  },[])
-
-
   const handleLogout = () => {
     localStorage.removeItem("user");
-    window.location.href = "/";
+    navigate("/");
+  };
+
+  const handleHome = () => {
+    navigate("/");
   };
 
   const handleCloseNavMenu = () => {
@@ -38,7 +38,7 @@ function Navbar(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -52,7 +52,7 @@ function Navbar(props) {
                 mr: 2,
                 display: { xs: "none", md: "flex" },
                 fontFamily: "monospace",
-                fontWeight: 700,
+                fontWeight: 400,
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
@@ -92,15 +92,25 @@ function Navbar(props) {
                   display: { xs: "block", md: "none" },
                 }}
               >
-             {/* <Typography>{user.username}</Typography> */}
-                <Button
-                  variant="contained"
-                  color="error"
-                  style={{ height: "30px" }}
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Button>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Button
+                    variant="contained"
+                    sx={{ bgcolor: "green", '&:hover': { bgcolor: 'darkgreen' }, height: "30px" }}
+                    onClick={handleHome}
+                  >
+                    Home
+                  </Button>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    style={{ height: "30px" }}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
+                </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     <div
@@ -117,7 +127,7 @@ function Navbar(props) {
                     <Avatar
                       sx={{
                         m: 1,
-                        bgcolor: "secondary.main",
+                        bgcolor: "primary.main",
                         margin: "0px 60px",
                       }}
                     >
@@ -128,6 +138,13 @@ function Navbar(props) {
               </Menu>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                variant="contained"
+                sx={{ bgcolor: "green", '&:hover': { bgcolor: 'darkgreen' }, height: "30px", margin: "13px 20px" }}
+                onClick={handleHome}
+              >
+                Home
+              </Button>
               <Button
                 variant="contained"
                 color="error"
@@ -142,12 +159,12 @@ function Navbar(props) {
                   justifyContent: "center",
                   alignItems: "center",
                   fontWeight: "bold",
-                  fontSize: "20px",
+                  fontSize: "16px",
                 }}
               >
                 {props.name}
               </div>
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                 <AdminPanelSettingsIcon />
               </Avatar>
             </Box>

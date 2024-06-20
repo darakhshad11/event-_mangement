@@ -13,7 +13,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import login from "../api/login";
-import users from "../data"
 
 function Login() {
   const [username, setUserName] = useState("");
@@ -24,22 +23,19 @@ function Login() {
     if (type === "password") setPassword(input);
   }
 
-  
   React.useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user")) || { role: "" };
     if (user.role === "user") {
       window.location.href = "/user-page";
-    } else if (user.role === "vendor")  {
+    } else if (user.role === "vendor") {
       window.location.href = "/vendor-page";
-    }
-     else if (user.role === "admin"){
+    } else if (user.role === "admin") {
       window.location.href = "/admin-page";
     }
   }, []);
 
   async function CheckName() {
     if (username.length <= 0 || password.length <= 0) {
-      console.log({username})
       alert("Enter Correct Details");
       return;
     }
@@ -54,12 +50,9 @@ function Login() {
       window.location.href = "/user-page";
     } else if (currentUser.role === "vendor") {
       window.location.href = "/vendor-page";
-    }else if (currentUser.role === "admin") {
+    } else if (currentUser.role === "admin") {
       window.location.href = "/admin-page";
-
-    }
-    
-    else {
+    } else {
       window.location.href = "/login-failed";
     }
     return;
@@ -68,7 +61,7 @@ function Login() {
   // theme
   const defaultTheme = createTheme();
 
-  // Copywrite Function
+  // Copyright Function
   function Copyright(props) {
     return (
       <Typography
@@ -77,59 +70,57 @@ function Login() {
         align="center"
         {...props}
       >
-        {"Copyright © "}
-        <Link
-          color="inherit"
-          href="https://fizaali.me"
-          target="_blank"
-        >
-          Event Management
-        </Link>{" "}
-        {new Date().getFullYear()}
-        {"."}
+        
       </Typography>
     );
   }
+
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        container
+        component="main"
+        sx={{ 
+          height: "100vh",
+          backgroundColor: "#b0bec5", 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <CssBaseline />
-
         <Grid
           item
-          xs={false}
-          sm={4}
-          md={7}
+          xs={10}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square
           sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        />
-
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        >
           <Box
             sx={{
-              my: 8,
-              mx: 4,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              width: "90%",
+              maxWidth: "480px",
+              p: 1,
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h6">
               EVENT MANAGEMENT SYSTEM
             </Typography>
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h3" variant="h5">
+            <Typography component="h3" variant="h6">
               Sign in
             </Typography>
             <Box sx={{ mt: 1 }}>
@@ -138,25 +129,22 @@ function Login() {
                 required
                 fullWidth
                 id="username"
-                type="username"
-                // value={username}
-                label="username"
-                onChange={(e) => setData(e.target.value, "username")}
+                label="Username"
                 name="username"
                 autoComplete="username"
                 autoFocus
+                onChange={(e) => setData(e.target.value, "username")}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 name="password"
-                // value={password}
                 label="Password"
-                onChange={(e) => setData(e.target.value, "password")}
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setData(e.target.value, "password")}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -164,9 +152,9 @@ function Login() {
               />
               <Button
                 fullWidth
-                onClick={CheckName}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={CheckName}
               >
                 Sign In
               </Button>
@@ -190,4 +178,5 @@ function Login() {
     </ThemeProvider>
   );
 }
+
 export default Login;
