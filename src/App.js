@@ -6,8 +6,10 @@ import Login from './components/Login.jsx';
 import VendorPage from './components/VendorPage.jsx';
 import UserPage from './components/UserPage.jsx';
 import SignUp from './components/Signup';
-import Navbar from './components/Navebar.jsx';
+import Navbar from './components/Navbar.jsx';
 import AdminPage from './components/AdminPage.jsx';
+import MaintainUser from './components/MaintainUser.jsx';
+import MaintainVendor from './components/MaintainVendor.jsx';
 
 
 
@@ -21,6 +23,8 @@ export default function App() {
           <Route exact path="/vendor-page" element={<VendorPage />} />
           <Route exact path="/user-page" element={<UserPage />} />
           <Route exact path="/admin-page" element={<AdminPage />} />
+          <Route path="/maintain-vendor" element={<MaintainVendor/>} />
+          <Route path="/maintain-user" element={<MaintainUser/>} />
         </Routes>
       </BrowserRouter>
     </>

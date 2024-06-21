@@ -1,5 +1,5 @@
 import * as React from "react";
-import Navbar from "./Navebar";
+import Navbar from "./Navbar";
 import fetchProduct from "../api/fetchProducts";
 
 export default function MediaCard() {
