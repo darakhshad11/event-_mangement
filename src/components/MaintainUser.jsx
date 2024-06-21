@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import fetchUser from '../api/fetchUser';
 import updateUserRoleByUsername from '../api/updateUserRole';
-import addUser from '../api/addUser'; // 
+import addUser from '../api/addUser';
 
 const MaintainUser = () => {
   const navigate = useNavigate();
@@ -31,8 +31,10 @@ const MaintainUser = () => {
     }
   };
 
-  const handleAddUser = async () => {
+  const handleAddUser = async (e) => {
+    e.preventDefault();
     try {
+      console.log('New user data:', newUser);
       await addUser(newUser.userName, newUser.role);
       alert(`User ${newUser.userName} added successfully`);
       setIsModalOpen(false);
@@ -41,6 +43,7 @@ const MaintainUser = () => {
       const filteredUsers = fetchedUsers.filter(user => user.role === 'user');
       setUsers(filteredUsers);
     } catch (error) {
+      console.error('Error adding user:', error);
       alert(`Failed to add user: ${error.message}`);
     }
   };
@@ -65,9 +68,6 @@ const MaintainUser = () => {
             LogOut
           </button>
        
-     
-        
-      
         <div style={{ display: "flex", width: "100%", justifyContent: "space-between", padding: "0 280px", marginTop: "160px" }}>
           <button style={{ backgroundColor: "white", padding: "4px", color: "black" , borderRadius: "8px", }}>Membership</button>
           <button style={{ backgroundColor: "blue", padding: "4px"  , borderRadius: "8px",}} onClick={openModal}>Add</button>
@@ -92,7 +92,7 @@ const MaintainUser = () => {
         }}>
           <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '300px' }}>
             <h2>Add New User</h2>
-            <form onSubmit={(e) => { e.preventDefault(); handleAddUser(); }}>
+            <form onSubmit={handleAddUser}>
               <div style={{ marginBottom: '10px' }}>
                 <label>Role:</label>
                 <select
@@ -103,7 +103,6 @@ const MaintainUser = () => {
                   <option value="">Select Role</option>
                   <option value="user">User</option>
                   <option value="vendor">Vendor</option>
-                 
                 </select>
               </div>
               <div style={{ marginBottom: '10px' }}>

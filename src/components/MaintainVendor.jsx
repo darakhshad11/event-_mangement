@@ -23,7 +23,7 @@ const MaintainVendor = ({ refresh }) => {
     try {
       await updateUserRoleByUsername(username, 'user');
       alert(`User ${username} role updated to User`);
-      refresh(); // Refresh the user list in AdminPage
+      refresh(); 
     } 
     catch (error) {
       alert();
@@ -36,9 +36,9 @@ const MaintainVendor = ({ refresh }) => {
       alert(`User ${newUser.userName} added successfully`);
       setIsModalOpen(false);
       setNewUser({ role: '', userName: '' });
-      refresh(); // Refresh the user list in AdminPage
+      refresh(); 
     } catch (error) {
-      alert(`Failed to add user: ${error.message}`);
+      alert();
     }
   };
 
