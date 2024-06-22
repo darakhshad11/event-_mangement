@@ -38,7 +38,7 @@ const MaintainVendor = ({ refresh }) => {
       setNewUser({ role: '', userName: '' });
       refresh(); 
     } catch (error) {
-      alert();
+      
     }
   };
 

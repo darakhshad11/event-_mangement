@@ -20,8 +20,7 @@ import addProduct from "../api/addProducts";
 import updateProducts from "../api/updateProduct";
 import deleteProducts from "../api/deleteProduct";
 
-// firebase
-// import {storage} from '../FirebaseConfig'
+
 
 const VendorPage = () => {
   console.log("i ma m vendorpage")
@@ -68,7 +67,7 @@ const VendorPage = () => {
     const user = JSON.parse(localStorage.getItem("user")) || { role: "" };
     if (user.role) {
       if (user.role === "vendor") {
-        // window.location.href = "/vendor-page";
+        
       } else {
         getData.current();
       }
@@ -117,7 +116,7 @@ const VendorPage = () => {
         <Typography variant="h3" component="h2" style={{fontFamily:'serif'}} >
           Add Product
         </Typography>
-        <Button variant="outlined" color="secondary"  onClick={handleClickOpen} style={{marginTop:'40px',marginBottom:'50px', fontSize:'18px'}}>
+        <Button variant="outlined" color="primary"  onClick={handleClickOpen} style={{marginTop:'40px',marginBottom:'50px', fontSize:'18px'}}>
           Add Product
         </Button>
         <TableContainer
@@ -153,8 +152,9 @@ const VendorPage = () => {
                     </Button>
                     <Button
                       variant="outlined"
-                      color="secondary"
+                     
                       onClick={() => handleDelete(row.id)}
+                      style={{color : "red"}}
                     >
                       Delete
                     </Button>

@@ -12,3 +12,5 @@ const addUser = async (userName, role) => {
 };
 
 export default addUser;
+
+
