@@ -160,18 +160,7 @@ function AdminPage() {
                   style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
                 />
               </div>
-              <div style={{ marginBottom: '10px' }}>
-                <label>Membership:</label>
-                <select
-                  value={newUser.membership}
-                  onChange={(e) => setNewUser(prevState => ({ ...prevState, membership: e.target.value }))}
-                  style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
-                >
-                  <option value="">Select Membership</option>
-                  <option value="6 months">6 months</option>
-                  <option value="1 year">1 year</option>
-                </select>
-              </div>
+              
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <button type="submit" style={{ padding: '4px 8px', backgroundColor: 'green', color: 'white', border: 'none' }}>Submit</button>
                 <button type="button" onClick={() => setIsModalOpen(false)} style={{ padding: '4px 8px', backgroundColor: 'red', color: 'white', border: 'none' }}>Close</button>
