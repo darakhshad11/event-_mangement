@@ -5,9 +5,7 @@ import addMembership from "../api/addMembership";
 const MaintainUser = () => {
   const [users, setUsers] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [newMembership, setNewMembership] = useState("");
+  const [newUser, setNewUser] = useState({ userName: '', role: '', membership: '' });
 
   useEffect(() => {
     fetchUser().then(usersData => {
@@ -33,23 +31,6 @@ const MaintainUser = () => {
     }
   }
 
-  async function handleUpdateMembership() {
-    if (!selectedUser || !newMembership) {
-      alert('Please select a user and membership duration');
-      return;
-    }
-
-    try {
-      // Implement logic to update user's membership
-      alert(`Membership for ${selectedUser} updated to ${newMembership}`);
-      setIsUpdateModalOpen(false);
-      setSelectedUser(null);
-      setNewMembership("");
-    } catch (error) {
-      alert('Error updating membership');
-    }
-  }
-
   return (
     <>
       <h1 style={{ textAlign: "center", fontSize: "30px", marginTop: "20px", padding: "2px" }}>Maintain User Page</h1>
@@ -62,12 +43,6 @@ const MaintainUser = () => {
             onClick={() => setIsAddModalOpen(true)}
           >
             Add
-          </button>
-          <button
-            style={{ marginBottom: "50px", padding: "5px", backgroundColor: "gray", color: "white", borderRadius: "8px" ,marginLeft: "20px", marginTop:"50px" }}
-            onClick={() => setIsUpdateModalOpen(true)}
-          >
-            Update
           </button>
         </div>
         <div style={{ marginTop: "5px", padding: "2px", marginLeft: "985px", backgroundColor: "gray", marginRight: "490px", borderRadius: "8px" }}>Update</div>
@@ -109,47 +84,6 @@ const MaintainUser = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <button type="submit" style={{ padding: '4px 8px', backgroundColor: 'green', color: 'white', border: 'none' }}>Submit</button>
                 <button type="button" onClick={() => setIsAddModalOpen(false)} style={{ padding: '4px 8px', backgroundColor: 'red', color: 'white', border: 'none' }}>Close</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {isUpdateModalOpen && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)',
-          display: 'flex', justifyContent: 'center', alignItems: 'center'
-        }}>
-          <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '300px' }}>
-            <h2>Update Membership</h2>
-            <form onSubmit={(e) => { e.preventDefault(); handleUpdateMembership(); }}>
-              <div style={{ marginBottom: '10px' }}>
-                <select
-                  value={selectedUser}
-                  onChange={(e) => setSelectedUser(e.target.value)}
-                  style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
-                >
-                  <option value="">Select User</option>
-                  {users.map((user, index) => (
-                    <option key={index} value={user.userName}>{user.userName}</option>
-                  ))}
-                </select>
-              </div>
-              <div style={{ marginBottom: '10px' }}>
-                <label>Membership:</label>
-                <select
-                  value={newMembership}
-                  onChange={(e) => setNewMembership(e.target.value)}
-                  style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
-                >
-                  <option value="">Select Membership</option>
-                  <option value="6 months">6 months</option>
-                  <option value="1 year">1 year</option>
-                </select>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <button type="submit" style={{ padding: '4px 8px', backgroundColor: 'green', color: 'white', border: 'none' }}>Update</button>
-                <button type="button" onClick={() => setIsUpdateModalOpen(false)} style={{ padding: '4px 8px', backgroundColor: 'red', color: 'white', border: 'none' }}>Close</button>
               </div>
             </form>
           </div>
