@@ -1,85 +1,105 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import fetchUser from "../api/fetchUser";
+import addMembership from "../api/addMembership";
+import updateMembership from "../api/updateMembership"; 
 import { useNavigate } from 'react-router-dom';
-import fetchUser from '../api/fetchUser';
-import updateUserRoleByUsername from '../api/updateUserRole';
-import addUser from '../api/addUser';
+import { getAuth, signOut } from "firebase/auth"; 
 
-const MaintainVendor = ({ refresh }) => {
+const MaintainVendor = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newUser, setNewUser] = useState({ role: '', userName: '' });
+  const [isUpdating, setIsUpdating] = useState(false); 
+  const [newUser, setNewUser] = useState({ userName: '', role: '', membership: '' });
 
   useEffect(() => {
-    const getUsers = async () => {
-      const fetchedUsers = await fetchUser();
-      const filteredUsers = fetchedUsers.filter(user => user.role === 'vendor');
-      setUsers(filteredUsers);
-    };
-    getUsers();
+    fetchUser().then(usersData => {
+      setUsers(usersData);
+    }).catch(error => {
+      console.error("Error fetching users:", error);
+    });
   }, []);
 
-  const updateRoleToUser = async (username) => {
+  async function handleAddOrUpdateUser() {
     try {
-      await updateUserRoleByUsername(username, 'user');
-      alert(`User ${username} role updated to User`);
-      refresh(); 
-    } 
-    catch (error) {
-      alert();
-    }
-  };
-
-  const handleAddUser = async () => {
-    try {
-      await addUser(newUser.userName, newUser.role);
-      alert(`User ${newUser.userName} added successfully`);
-      setIsModalOpen(false);
-      setNewUser({ role: '', userName: '' });
-      refresh(); 
-    } catch (error) {
+      if (isUpdating) {
+        await updateMembership(newUser.userName, newUser.membership); 
+        alert('Membership updated successfully');
+      } else {
+        await addMembership(newUser.userName, newUser.membership); 
+        alert('Membership added successfully');
+      }
       
+      setIsModalOpen(false);
+      setNewUser({ userName: '', role: '', membership: '' });
+      fetchUser().then(usersData => {
+        setUsers(usersData);
+      }).catch(error => {
+        console.error("Error fetching users:", error);
+      });
+    } catch (error) {
+      alert(`Error ${isUpdating ? 'updating' : 'adding'} membership`);
     }
-  };
+  }
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      navigate('/'); // Redirect to the login page
+    }).catch((error) => {
+      console.error("Error logging out:", error);
+    });
+  };
 
   return (
-    <div style={{ backgroundColor: "grey", minHeight: '100vh' }}>
-      <div style={{ display: "flex" }}>
-        <div style={{ marginLeft: "600px", fontSize: "30px", marginTop: "20px" }}>
-          <p>Maintain Vendor Page</p>
-        </div>
-      </div>
+    <>
       <button
-        style={{ backgroundColor: "#29adff", borderRadius: "8px", marginLeft: "1300px", padding: "4px" }}
+        style={{ backgroundColor: "#7fffd4", borderRadius: "8px", marginLeft: "1300px", padding: "4px", marginTop: "20px" }}
         onClick={() => navigate('/admin-page')}
       >
         Home
       </button>
       <button
-        style={{ backgroundColor: "red", borderRadius: "8px", marginLeft: "90px", padding: "4px" }}
-        onClick={() => navigate('/')}
+        style={{ backgroundColor: "red", borderRadius: "8px", marginLeft: "90px", padding: "4px", marginTop: "20px" }}
+        onClick={handleLogout}
       >
         LogOut
       </button>
-
-      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", padding: "0 280px", marginTop: "160px" }}>
-        <button style={{ backgroundColor: "white", padding: "4px", color: "black", borderRadius: "8px" }}>Membership</button>
-        <button style={{ backgroundColor: "blue", padding: "4px", borderRadius: "8px" }} onClick={openModal}>Add</button>
-      </div>
-      {users.map((user, index) => (
-        <div key={index} style={{ marginTop: "20px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 280px", width: "100%" }}>
-          <span>{user.userName}</span>
+      <h1 style={{ textAlign: "center", fontSize: "30px", marginTop: "20px", padding: "2px" }}>Maintain Ventor Page</h1>
+      <div>
+        <div style={{ display: "flex" }}>
+          <div style={{ marginTop: "80px", padding: "2px", marginLeft: "450px" ,backgroundColor: "grey", border:" 2px solid black" , marginBottom:"40px",color:"white"  , fontSize:"20px"}}>Membership</div>
           <button
-            style={{ backgroundColor: "white", padding: "4px", marginLeft: "25px", borderRadius: '8px' }}
-            onClick={() => updateRoleToUser(user.userName)}
+            style={{ marginBottom: "55px", padding: "5px", backgroundColor: "#30d5c8", color: "white", borderRadius: "8px", marginLeft: "425px", marginTop: "55px" , border:" 2px solid black" }}
+            onClick={() => { setIsModalOpen(true); setIsUpdating(false); }}
           >
-            Update 
+            Add
           </button>
         </div>
-      ))}
+        <button 
+          style={{ marginTop: "5px", padding: "4px", marginLeft: "985px", backgroundColor: "#30d5c8", marginRight: "570px", borderRadius: "8px", color: "white" , border:" 2px solid black"}}
+          onClick={() => { setIsModalOpen(true); setIsUpdating(true); }}
+        >
+          Update
+        </button>
+      </div>
+      <div>
+        <div style={{ display: "flex" }}>
+          <div style={{ marginTop: "80px", padding: "2px", marginLeft: "450px",backgroundColor: "grey", border:" 2px solid black",marginBottom:"40px",color:"white" ,fontSize:"20px"}}>User Mangement</div>
+          <button
+            style={{ marginBottom: "55px", padding: "5px", backgroundColor: "#30d5c8", color: "white", borderRadius: "8px", marginLeft: "390px", marginTop: "55px", border:" 2px solid black" }}
+            
+          >
+            Add
+          </button>
+        </div>
+        <button 
+          style={{ marginTop: "5px", padding: "4px", marginLeft: "985px", backgroundColor: "#30d5c8", marginRight: "540px", borderRadius: "8px", color: "white" , border:" 2px solid black" }}
+         
+        >
+          Update
+        </button>
+      </div>
 
       {isModalOpen && (
         <div style={{
@@ -87,43 +107,41 @@ const MaintainVendor = ({ refresh }) => {
           display: 'flex', justifyContent: 'center', alignItems: 'center'
         }}>
           <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '300px' }}>
-            <h2>Add New User</h2>
-            <form onSubmit={(e) => { e.preventDefault(); handleAddUser(); }}>
+            <h2>{isUpdating ? 'Update Membership' : 'Add Membership'}</h2>
+            <form onSubmit={(e) => { e.preventDefault(); handleAddOrUpdateUser(); }}>
               <div style={{ marginBottom: '10px' }}>
-                <label>Role:</label>
                 <select
-                  value={newUser.role}
-                  onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
-                  style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
-                >
-                  <option value="">Select Role</option>
-                  <option value="user">User</option>
-                  <option value="vendor">Vendor</option>
-                </select>
-              </div>
-              <div style={{ marginBottom: '10px' }}>
-                <label>Name:</label>
-                <input
-                  type="text"
                   value={newUser.userName}
                   onChange={(e) => setNewUser(prevState => ({ ...prevState, userName: e.target.value }))}
                   style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
-                />
+                >
+                  <option value="">Select User</option>
+                  {users.map((user, index) => (
+                    <option key={index} value={user.userName}>{user.userName}</option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ marginBottom: '10px', marginTop: '10px' }}>
+                <label>Membership:</label>
+                <select
+                  value={newUser.membership}
+                  onChange={(e) => setNewUser(prevState => ({ ...prevState, membership: e.target.value }))}
+                  style={{ width: '100%', padding: '4px', marginTop: '4px', border: '1px solid #ccc' }}
+                >
+                  <option value="">Select Membership</option>
+                  <option value="6 months">6 months</option>
+                  <option value="1 year">1 year</option>
+                </select>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <button type="submit" style={{ padding: '4px 8px', backgroundColor: 'green', color: 'white', border: 'none' }}>Submit</button>
-                <button type="button" onClick={closeModal} style={{ padding: '4px 8px', backgroundColor: 'red', color: 'white', border: 'none' }}>Close</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} style={{ padding: '4px 8px', backgroundColor: 'red', color: 'white', border: 'none' }}>Close</button>
               </div>
             </form>
           </div>
         </div>
       )}
-      <div style={{ display: "flex", width: "100%", justifyContent: "space-between", padding: "0 280px", marginTop: "50px" }}>
-        <button style={{ backgroundColor: "white", padding: "4px", color: "black", borderRadius: '8px' }}>User Management</button>
-        <button style={{ backgroundColor: "blue", padding: "4px", borderRadius: '8px' }}>Add</button>
-      </div>
-      <button style={{ backgroundColor: "white", padding: "4px", marginLeft: "1205px", marginTop: "20px", borderRadius: '8px' }}>Update</button>
-    </div>
+    </>
   );
 };
 
