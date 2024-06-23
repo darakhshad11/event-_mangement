@@ -110,9 +110,18 @@ const VendorPage = () => {
         <Typography variant="h3" component="h2" style={{ fontFamily: 'serif' }}>
           Welcome Vendor
         </Typography>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen} style={{ marginTop: '40px', marginBottom: '50px', fontSize: '18px' }}>
-          Add Product
+        <div style={{display:"flex"}}>
+        <Button variant="outlined" color="primary" style={{ marginTop: '40px', marginBottom: '50px', fontSize: '18px', marginRight: '30px' }}>
+          Your item
         </Button>
+        <Button variant="outlined" color="primary" onClick={handleClickOpen} style={{ marginTop: '40px', marginBottom: '50px', fontSize: '18px' , marginRight: '30px'}}>
+          Add New Product
+        </Button>
+        <Button variant="outlined" color="primary" style={{ marginTop: '40px', marginBottom: '50px', fontSize: '18px', marginRight: '30px' }}>
+          Transation
+        </Button>
+        
+        </div>
         <TableContainer
           component={Paper}
           style={{ minWidth: "650px", marginTop: "20px" }}
