@@ -10,6 +10,7 @@ import Navbar from './components/Navbar.jsx';
 import AdminPage from './components/AdminPage.jsx';
 import MaintainUser from './components/MaintainUser.jsx';
 import MaintainVendor from './components/MaintainVendor.jsx';
+import Cart from './components/Cart.jsx'
 
 
 
@@ -24,6 +25,7 @@ export default function App() {
           <Route exact path="/user-page" element={<UserPage />} />
           <Route exact path="/admin-page" element={<AdminPage />} />
           <Route path="/maintain-vendor" element={<MaintainVendor/>} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/maintain-user" element={<MaintainUser/>} />
         </Routes>
       </BrowserRouter>

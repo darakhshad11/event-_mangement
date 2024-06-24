@@ -3,21 +3,16 @@ import Navbar from './Navbar';
 import fetchProduct from '../api/fetchProducts';
 import {
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  TextField,
 } from '@mui/material';
 import ProductModal from './ProductModal';
+import { useNavigate } from 'react-router-dom';
 
 export default function MediaCard() {
   const [products, setProducts] = React.useState([]);
   const [selectedProduct, setSelectedProduct] = React.useState(null);
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [cart, setCart] = React.useState([]);
+  const navigate = useNavigate();
 
   const getData = React.useRef(() => {});
 
@@ -48,6 +43,14 @@ export default function MediaCard() {
     setModalOpen(false);
   };
 
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  const handleCartClick = () => {
+    navigate("/cart", { state: { cart } });
+  };
+
   return (
     <>
       <Navbar name="USER" />
@@ -71,12 +74,13 @@ export default function MediaCard() {
             color="primary"
             style={{ marginTop: '40px', marginBottom: '50px', fontSize: '18px', marginRight: '30px' }}
           >
-            Ventor
+            Vendor
           </Button>
           <Button
             variant="outlined"
             color="primary"
             style={{ marginTop: '40px', marginBottom: '50px', fontSize: '18px', marginRight: '30px' }}
+            onClick={handleCartClick}
           >
             Cart
           </Button>
@@ -111,10 +115,11 @@ export default function MediaCard() {
                     <p className="text-gray-700 text-base">{product.description}</p>
                     <p className="text-gray-600 text-sm mt-2">Updated Date: {product.date}</p>
                     <p className="text-gray-800 text-lg mt-2">${product.price}</p>
+                    <p className="text-gray-800 text-lg mt-2">${product.image}</p>
                     <p className="text-gray-700 text-sm mt-2">Only {product.quantity} items left</p>
                   </div>
                   <div className="px-6 pt-4 pb-2">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Order Now</button>
+                    <button onClick={() => addToCart(product)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Add to Cart</button>
                   </div>
                 </div>
               );
